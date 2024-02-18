@@ -1,6 +1,9 @@
 const form = document.querySelector('#add_task_form');
 const titleInput = document.querySelector('#taskInput');
 const descriptionInput = document.querySelector('#descriptionInput');
+const taskList = document.getElementById('taskList');
+
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -12,6 +15,8 @@ form.addEventListener('submit', (event) => {
       if (response.status === 200) {
         console.log('Task added successfully!');
         form.reset();
+        taskList.appendChild(li);
+        // window.location.reload(); // Динамическое обновление страницы
       } else {
         console.error('There was an error adding the task:', response);
       }
@@ -19,9 +24,17 @@ form.addEventListener('submit', (event) => {
     .catch((error) => {
       console.error('There was an error adding the task:', error);
     });
+
+     // Функция для добавления новой задачи в список
+   function addTask(taskText) {
+       const li = document.createElement('li');
+       li.innerHTML = `
+           ${taskText}
+           <button class="delete-button">Delete</button>
+       `;
+       taskList.appendChild(li);
+   }
 });
-
-
 
 
 //document.addEventListener('DOMContentLoaded', async function() {
@@ -66,13 +79,5 @@ form.addEventListener('submit', (event) => {
 //        }
 //    });
 //
-//    // Функция для добавления новой задачи в список
-//    function addTask(taskText) {
-//        const li = document.createElement('li');
-//        li.innerHTML = `
-//            ${taskText}
-//            <button class="delete-button">Delete</button>
-//        `;
-//        taskList.appendChild(li);
-//    }
+
 //});

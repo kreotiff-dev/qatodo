@@ -4,7 +4,10 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (qatodo)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (qatodo) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="beb4db13-e667-41a2-97ff-29c75cdfd5a0" />
   </component>
 </module>

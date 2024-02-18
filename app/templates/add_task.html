@@ -8,12 +8,21 @@
 <body>
     <h1>Add Task</h1>
 
-    <form action="/add_task" method="post" enctype="multipart/form-data">
+    <form action="/add_task" method="post">
+        {{ form.hidden_tag() }}
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title"><br><br>
+        {{ form.title.label }}<br>
+        {{ form.title }}<br><br>
         <label for="description">Description:</label><br>
-        <textarea id="description" name="description"></textarea><br><br>
-        <button type="submit">Add Task</button>
+        {{ form.description.label }}<br>
+        {{ form.description }}<br><br>
+        {{ form.submit }}
+
+<!--        <label for="title">Title:</label><br>-->
+<!--        <input type="text" id="title" name="title"><br><br>-->
+<!--        <label for="description">Description:</label><br>-->
+<!--        <textarea id="description" name="description"></textarea><br><br>-->
+<!--        <button type="submit">Add Task</button>-->
     </form>
 </body>
 </html>

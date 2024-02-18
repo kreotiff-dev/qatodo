@@ -22,7 +22,7 @@ form {
     margin-bottom: 20px;
 }
 
-input[type="text"] {
+#input[type="text"] {
     width: 70%;
     padding: 10px;
     margin-right: 10px;
@@ -30,7 +30,7 @@ input[type="text"] {
     border-radius: 5px;
 }
 
-button {
+#submit {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;

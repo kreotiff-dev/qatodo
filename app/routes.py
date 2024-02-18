@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
 from app.models.task import Task
+from app.todoforms import TaskForm
 
 
 # Главная страница
@@ -8,41 +9,40 @@ from app.models.task import Task
 @app.route('/index')
 def index():
     tasks = Task.query.all()
-    return render_template('index.html', tasks=tasks)
+    form = TaskForm()
+    return render_template('index.html', tasks=tasks, form=form)
 
 
 # Добавление задачи
 @app.route('/add_task', methods=['POST'])
 def add_task():
-    print(request.form)
-    title = request.form.get('title')
-    description = request.form.get('description')
-    print(f"Title: {title}, Description: {description}")
-    if title is None or description is None:
-        return "Invalid request", 400
-    task = Task(title=title, description=description)
-    print(f"Adding task: {task}")
-    db.session.add(task)
-    db.session.commit()
-    print(f"Task added: {task}")
+    form = TaskForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        print(f"Title: {title}, Description: {description}")
+        if title is None or description is None:
+            return "Invalid request", 400
+        task = Task(title=title, description=description)
+        print(f"Adding task: {task}")
+        db.session.add(task)
+        db.session.commit()
+        print(f"Task added: {task}")
 
-    return redirect(url_for('index'))
-    # if request.method == 'POST':
-    #     title = request.form.get('title')
-    #     description = request.form.get('description')
-    #     if title is None or description is None:
-    #         return "Invalid request", 400
-    #     task = Task(title=title, description=description)
-    #     print(f"Adding task: {task}")
-    #     db.session.add(task)
-    #     db.session.commit()
-    #     print(f"Task added: {task}")
-    #     return redirect(url_for('index'))
-    # else:
-    #     tasks = Task.query.all()
-    #     return render_template('index.html', tasks=tasks)
-    #     # return render_template('add_task.html')
+        return redirect(url_for('index'))
+    # print(request.form)
+    # title = request.form.get('title')
+    # description = request.form.get('description')
+    # print(f"Title: {title}, Description: {description}")
+    # if title is None or description is None:
+    #     return "Invalid request", 400
+    # task = Task(title=title, description=description)
+    # print(f"Adding task: {task}")
+    # db.session.add(task)
+    # db.session.commit()
+    # print(f"Task added: {task}")
 
+    # return redirect(url_for('index'))
 
 # Редактирование задачи
 @app.route('/edit_task/<int:task_id>', methods=['GET', 'POST'])
