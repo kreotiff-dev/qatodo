@@ -25,28 +25,43 @@
         <ul id="taskList">
             <!-- Каждая задача будет добавляться сюда динамически через JavaScript -->
             {% for task in tasks %}
-            <li>{{ task.title }} - {{ task.description }}</li>
+            <li>
+                {{ task.title }} - {{ task.description }}
+                <form action="/edit_task/{{ task.id }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <button class="button" type="submit">Edit</button>
+                    <button class="editButton" data-task-id="{{ task.id }}">Редактировать</button>
+                </form>
+                <form action="/delete_task/{{ task.id }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <button class="button"  type="submit">Delete</button>
+                </form>
+            </li>
             {% endfor %}
         </ul>
     </div>
 
     <!-- Форма для редактирования задачи (по умолчанию скрыта) -->
     <div id="editTaskForm" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
         <form id="editForm">
             <input type="text" id="editTaskInput" required>
-            <button type="submit">Save Changes</button>
-            <button id="cancelEditButton">Cancel</button>
+            <textarea id="editTaskDescription" required></textarea>
+            <button type="submit">Сохранить</button>
+            <button id="cancelEditButton">Отмена</button>
         </form>
     </div>
+</div>
 
-    <!-- Форма для удаления задачи (по умолчанию скрыта) -->
-    <div id="deleteTaskForm" class="modal">
-        <form id="deleteForm">
-            <p>Are you sure you want to delete this task?</p>
-            <button type="submit">Delete Task</button>
-            <button id="cancelDeleteButton">Cancel</button>
-        </form>
-    </div>
+<!--    &lt;!&ndash; Форма для удаления задачи (по умолчанию скрыта) &ndash;&gt;-->
+<!--    <div id="deleteTaskForm" class="modal">-->
+<!--        <form id="deleteForm">-->
+<!--            <p>Are you sure you want to delete this task?</p>-->
+<!--            <button type="submit">Delete Task</button>-->
+<!--            <button id="cancelDeleteButton">Cancel</button>-->
+<!--        </form>-->
+<!--    </div>-->
 </body>
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </html>
